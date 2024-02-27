@@ -31,7 +31,9 @@ export type ChessboardRef = {
     from: Square;
     to: Square;
   }) => Promise<Move | undefined> | undefined;
-  moves: () => string[] | undefined;
+  moves: (_: {
+    verbose: boolean;
+  }) => string[] | Move[] | undefined;
   highlight: (_: { square: Square; color?: string }) => void;
   resetAllHighlightedSquares: () => void;
   resetBoard: (fen?: string) => void;
@@ -80,8 +82,8 @@ const BoardRefsContextProviderComponent = React.forwardRef<
       move: ({ from, to }) => {
         return pieceRefs?.current?.[from].current?.moveTo?.(to);
       },
-      moves: () => {
-        return chess.moves();
+      moves: ({ verbose }) => {
+        return chess.moves({ verbose });
       },
       undo: () => {
         chess.undo();

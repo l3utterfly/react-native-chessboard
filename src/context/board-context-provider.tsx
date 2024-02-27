@@ -30,7 +30,7 @@ const ChessboardContextProviderComponent = React.forwardRef<
   const chessboardController: ChessboardRef = useMemo(() => {
     return {
       move: (params) => chessboardRef.current?.move?.(params),
-      moves: () => chessboardRef.current?.moves?.(),
+      moves: (params) => chessboardRef.current?.moves?.(params),
       undo: () => {
         chessboardRef.current?.undo();
         boardOperationsRef.current?.reset();
