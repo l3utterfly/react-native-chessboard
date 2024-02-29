@@ -50,6 +50,9 @@ const ChessboardContainerComponent = React.forwardRef<
       },
       remove: (square) => chessboardRef.current?.remove?.(square),
       undo: () => chessboardRef.current?.undo(),
+      getBoard() {
+        return chessboardRef.current?.getBoard?.();
+      },
       highlight: (params) => chessboardRef.current?.highlight(params),
       resetAllHighlightedSquares: () =>
         chessboardRef.current?.resetAllHighlightedSquares(),

@@ -1,4 +1,4 @@
-import type { Move, Piece, Square } from 'chess.js';
+import type { Move, Piece, PieceType, Square } from 'chess.js';
 import React, {
   createContext,
   useCallback,
@@ -31,11 +31,15 @@ export type ChessboardRef = {
     from: Square;
     to: Square;
   }) => Promise<Move | undefined> | undefined;
-  moves: (_: {
-    verbose: boolean;
-  }) => string[] | Move[] | undefined;
+  moves: (_: { verbose: boolean }) => string[] | Move[] | undefined;
   put: (piece: Piece, square: Square) => void;
   remove: (square: Square) => void;
+  getBoard: () =>
+    | ({
+        type: PieceType;
+        color: 'b' | 'w';
+      } | null)[][]
+    | undefined;
   highlight: (_: { square: Square; color?: string }) => void;
   resetAllHighlightedSquares: () => void;
   resetBoard: (fen?: string) => void;
@@ -94,6 +98,9 @@ const BoardRefsContextProviderComponent = React.forwardRef<
       remove: (square: Square) => {
         chess.remove(square);
         setBoard(chess.board());
+      },
+      getBoard: () => {
+        return chess.board();
       },
       undo: () => {
         chess.undo();
