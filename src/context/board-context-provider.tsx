@@ -31,6 +31,9 @@ const ChessboardContextProviderComponent = React.forwardRef<
     return {
       move: (params) => chessboardRef.current?.move?.(params),
       moves: (params) => chessboardRef.current?.moves?.(params),
+      put: (piece, square) => {
+        chessboardRef.current?.put?.(piece, square);
+      },
       undo: () => {
         chessboardRef.current?.undo();
         boardOperationsRef.current?.reset();
