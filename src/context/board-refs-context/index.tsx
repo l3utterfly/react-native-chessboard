@@ -43,7 +43,7 @@ export type ChessboardRef = {
     | undefined;
   highlight: (_: { square: Square; color?: string }) => void;
   resetAllHighlightedSquares: () => void;
-  resetBoard: (fen?: string) => void;
+  resetBoard: (fen?: string) => boolean | undefined;
   getState: () => ChessboardState;
 };
 
@@ -131,9 +131,11 @@ const BoardRefsContextProviderComponent = React.forwardRef<
         return getChessboardState(chess);
       },
       resetBoard: (fen) => {
+        let success = false;
         chess.reset();
-        if (fen) chess.load(fen);
+        if (fen) success = chess.load(fen);
         setBoard(chess.board());
+        return success;
       },
     }),
     [board, chess, setBoard]

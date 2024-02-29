@@ -50,8 +50,9 @@ const ChessboardContextProviderComponent = React.forwardRef<
         chessboardRef.current?.resetAllHighlightedSquares(),
       getState: () => chessboardRef?.current?.getState() as ChessboardState,
       resetBoard: (params) => {
-        chessboardRef.current?.resetBoard(params);
+        let success = chessboardRef.current?.resetBoard(params);
         boardOperationsRef.current?.reset();
+        return success;
       },
     };
   }, []);
