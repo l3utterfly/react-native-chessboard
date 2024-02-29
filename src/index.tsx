@@ -49,6 +49,9 @@ const ChessboardContainerComponent = React.forwardRef<
         chessboardRef.current?.put?.(piece, square);
       },
       remove: (square) => chessboardRef.current?.remove?.(square),
+      get(square) {
+        return chessboardRef.current?.get?.(square);
+      },
       undo: () => chessboardRef.current?.undo(),
       getBoard() {
         return chessboardRef.current?.getBoard?.();

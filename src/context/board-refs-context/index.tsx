@@ -34,6 +34,7 @@ export type ChessboardRef = {
   moves: (_: { verbose: boolean }) => string[] | Move[] | undefined;
   put: (piece: Piece, square: Square) => void;
   remove: (square: Square) => void;
+  get: (square: Square) => Piece | null | undefined;
   getBoard: () =>
     | ({
         type: PieceType;
@@ -98,6 +99,9 @@ const BoardRefsContextProviderComponent = React.forwardRef<
       remove: (square: Square) => {
         chess.remove(square);
         setBoard(chess.board());
+      },
+      get: (square: Square) => {
+        return chess.get(square);
       },
       getBoard: () => {
         return chess.board();
