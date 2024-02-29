@@ -35,6 +35,7 @@ export type ChessboardRef = {
     verbose: boolean;
   }) => string[] | Move[] | undefined;
   put: (piece: Piece, square: Square) => void;
+  remove: (square: Square) => void;
   highlight: (_: { square: Square; color?: string }) => void;
   resetAllHighlightedSquares: () => void;
   resetBoard: (fen?: string) => void;
@@ -88,6 +89,10 @@ const BoardRefsContextProviderComponent = React.forwardRef<
       },
       put: (piece: Piece, square: Square) => {
         chess.put(piece, square);
+        setBoard(chess.board());
+      },
+      remove: (square: Square) => {
+        chess.remove(square);
         setBoard(chess.board());
       },
       undo: () => {

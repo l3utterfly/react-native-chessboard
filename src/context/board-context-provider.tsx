@@ -34,6 +34,7 @@ const ChessboardContextProviderComponent = React.forwardRef<
       put: (piece, square) => {
         chessboardRef.current?.put?.(piece, square);
       },
+      remove: (square) => chessboardRef.current?.remove?.(square),
       undo: () => {
         chessboardRef.current?.undo();
         boardOperationsRef.current?.reset();
